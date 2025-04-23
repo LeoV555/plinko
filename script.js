@@ -1,18 +1,16 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Screen elements
+
     const mainMenu = document.getElementById('main-menu');
     const plinkoStart = document.getElementById('plinko-start');
     const plinkoGame = document.getElementById('plinko-game');
     const plinkoGameOver = document.getElementById('plinko-game-over');
-    
-    // Button elements
+
     const plinkoButton = document.getElementById('plinko-button');
     const backToMenuButton = document.getElementById('back-to-menu');
     const plinkoToMenuButton = document.getElementById('plinko-to-menu');
     const plinkoRestartButton = document.getElementById('plinko-restart');
     const plinkoGameOverToMenu = document.getElementById('plinko-game-over-to-menu');
-    
-    // Plinko game elements
+  
     const moneyButtons = document.querySelectorAll('.money-buttons button');
     const balanceDisplay = document.getElementById('balance');
     const betAmountInput = document.getElementById('bet-amount');
@@ -31,8 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const finalGamesDisplay = document.getElementById('final-games');
     const finalWinningsDisplay = document.getElementById('final-winnings');
     const finalWinRateDisplay = document.getElementById('final-win-rate');
-    
-    // Game variables
+   
     let balls = [];
     let pegs = [];
     let balance = 0;
@@ -53,7 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
         results: []
     };
 
-    // Navigation functions
+
     function showMainMenu() {
         mainMenu.classList.remove('hidden');
         plinkoStart.classList.add('hidden');
@@ -78,13 +75,12 @@ document.addEventListener('DOMContentLoaded', () => {
         gameEnding = false;
     }
 
-    // Navigation event listeners
+   
     plinkoButton.addEventListener('click', showPlinkoStart);
     backToMenuButton.addEventListener('click', showMainMenu);
     plinkoToMenuButton.addEventListener('click', showMainMenu);
     plinkoGameOverToMenu.addEventListener('click', showMainMenu);
 
-    // Initialize money selection for Plinko
     moneyButtons.forEach(button => {
         button.addEventListener('click', () => {
             balance = parseFloat(button.dataset.amount);
@@ -95,7 +91,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Set bet amount
+ 
     setBetButton.addEventListener('click', () => {
         const newBet = parseFloat(betAmountInput.value);
         if (isNaN(newBet)) {
@@ -114,7 +110,7 @@ document.addEventListener('DOMContentLoaded', () => {
         betAmountInput.value = currentBet.toFixed(1);
     });
 
-    // Update balance display
+  
     function updateBalance() {
         balanceDisplay.textContent = `€${balance.toFixed(1)}`;
         if (balance < 0.1 && !isAnimating && !gameEnding) {
@@ -122,7 +118,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // End game when balance is too low
+
     function endGame() {
         if (activeBalls > 0) {
             gameEnding = true;
@@ -132,7 +128,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Restart game
+   
     plinkoRestartButton.addEventListener('click', () => {
         gameStats = {
             totalBets: 0,
@@ -146,7 +142,7 @@ document.addEventListener('DOMContentLoaded', () => {
         gameEnding = false;
     });
 
-    // Update game statistics
+
     function updateStatsDisplay() {
         totalBetsDisplay.textContent = gameStats.totalBets;
         totalWinsDisplay.textContent = gameStats.totalWins;
@@ -162,7 +158,7 @@ document.addEventListener('DOMContentLoaded', () => {
         finalWinRateDisplay.textContent = `${winRate}%`;
     }
 
-    // Create the grid of pegs
+
     function createGrid(rows) {
         grid.innerHTML = '';
         pegs = [];
@@ -184,7 +180,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Create the slots at the bottom with inverted multipliers
     function createSlots(rows, maxMultiplier) {
         slots.innerHTML = '';
         const slotCount = rows + 1;
@@ -212,7 +207,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         multiplier = parseFloat(Math.min(1, multiplier).toFixed(1));
                     }
                 }
-            } else { // Low mode
+            } else { 
                 multiplier = parseFloat((0.2 + (distanceFromCenter * (maxMultiplier-0.2)/center)).toFixed(1));
                 
                 if (distanceFromCenter <= 1) {
@@ -248,7 +243,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Add result to the results list
+
     function addResult(multiplier, winnings) {
         const resultItem = document.createElement('div');
         resultItem.classList.add('result-item');
@@ -265,7 +260,7 @@ document.addEventListener('DOMContentLoaded', () => {
         resultItem.appendChild(winningsSpan);
         resultsList.insertBefore(resultItem, resultsList.firstChild);
         
-        // Update game stats
+
         gameStats.totalBets++;
         if (isWin) gameStats.totalWins++;
         gameStats.results.push({ multiplier, winnings });
@@ -277,8 +272,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Drop one or more balls
-// V script.js zamenjajte funkcijo dropBalls s to novo verzijo:
+
 function dropBalls(count = 1) {
     if (!gameActive) return;
     
@@ -298,9 +292,9 @@ function dropBalls(count = 1) {
     }
 }
 
-// In posodobite funkcijo animateBall (spremenite zadnji del):
+
 function animateBall(ballData) {
-    // ... obstoječa koda ...
+
 
     if (newTop >= grid.offsetHeight - 15) {
         const ballCenterX = newLeft + 6;
@@ -327,7 +321,7 @@ function animateBall(ballData) {
         grid.removeChild(element);
         balls = balls.filter(b => b !== ballData);
         
-        // Odstranili smo preverjanje activeBalls in gameEnding
+        
     } else {
         requestAnimationFrame(() => animateBall(ballData));
     }
@@ -337,7 +331,7 @@ function animateBall(ballData) {
         const ball = document.createElement('div');
         ball.classList.add('ball');
         
-        // Center-biased starting position
+    
         let startOffset;
         const rand = Math.random();
         if (rand < 0.7) { // 70% center
@@ -348,7 +342,7 @@ function animateBall(ballData) {
             startOffset = (Math.random() - 0.5) * 80;
         }
         
-        // Apply center bias
+     
         const centerBias = 0.3;
         startOffset *= (1 - centerBias);
         
@@ -420,11 +414,10 @@ function animateBall(ballData) {
                 const multiplier = parseFloat(multiplierText.replace('x', ''));
                 const winnings = parseFloat((currentBet * multiplier).toFixed(1));
                 
-                // Add winnings to balance
+   
                 balance = parseFloat((balance + winnings).toFixed(1));
                 updateBalance();
                 
-                // Add result to the list
                 addResult(multiplier, winnings);
                 
                 // Flash the slot where ball landed
@@ -448,12 +441,12 @@ function animateBall(ballData) {
         }
     }
 
-    // Event listeners for ball drops
+
     dropBallButton.addEventListener('click', () => dropBalls(1));
     drop5BallsButton.addEventListener('click', () => dropBalls(5));
     drop10BallsButton.addEventListener('click', () => dropBalls(10));
 
-    // Game mode switching
+
     function setGameMode(mode) {
         if (mode === 'high') {
             rows = 24;
@@ -475,7 +468,6 @@ function animateBall(ballData) {
     highModeButton.addEventListener('click', () => setGameMode('high'));
     lowModeButton.addEventListener('click', () => setGameMode('low'));
 
-    // Initialize with main menu
     showMainMenu();
     setGameMode('high');
 });
