@@ -24,7 +24,6 @@ body {
     display: none;
 }
 
-/* Skupni stili za zaslona z ozadjem */
 #main-menu, #plinko-start {
     background-image: url('casino-bg.png');
     background-size: cover;
@@ -127,8 +126,7 @@ body {
     background-color: rgba(41, 128, 185, 0.95);
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
 }
-
-/* Back buttons */
+/
 #back-to-menu, #plinko-to-menu, #plinko-game-over-to-menu {
     padding: 10px 20px;
     margin-top: 30px;
@@ -148,7 +146,6 @@ body {
     background-color: rgba(149, 165, 166, 0.95);
 }
 
-/* Game container */
 .game-container {
     position: relative;
     text-align: center;
@@ -204,7 +201,6 @@ body {
     border-radius: 5px;
 }
 
-/* Game area */
 .game-area {
     flex-grow: 1;
     display: flex;
@@ -244,7 +240,7 @@ body {
     margin-bottom: 10px;
 }
 
-/* Results display */
+
 .results-display {
     width: 100%;
     background-color: #34495e;
@@ -306,7 +302,7 @@ body {
     color: #e74c3c;
 }
 
-/* Controls */
+
 .controls {
     margin-top: 15px;
     padding-top: 15px;
@@ -449,7 +445,6 @@ body {
     z-index: 100;
 }
 
-/* Game over screen */
 #plinko-game-over h1 {
     color: #e74c3c;
     font-size: 3rem;
